@@ -26,26 +26,29 @@ public class MainActivity extends AppCompatActivity {
     Button copyClipboardBtn;
 
     CSVReader reader;
-    HashMap map;
+    HashMap<String, String> map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        map = new HashMap<String, String>();
+        rl = findViewById(R.id.rl);
+        hexBtn = findViewById(R.id.hexBtn);
+        copyClipboardBtn = findViewById(R.id.copyClipboardBtn);
+
         try {
             reader = new CSVReader(new FileReader("wikipedia_color_names.csv")); //Insert file name here
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
                 nextLine = reader.readNext();
+                map.put(nextLine[0], nextLine[1]);
             }
         } catch (IOException e) {
             e.getMessage();
         }
 
-        rl = findViewById(R.id.rl);
-        hexBtn = findViewById(R.id.hexBtn);
-        copyClipboardBtn = findViewById(R.id.copyClipboardBtn);
     }
 
     public void setRandomARGBBackground(View view) {
